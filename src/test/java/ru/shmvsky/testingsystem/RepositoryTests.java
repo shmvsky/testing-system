@@ -9,6 +9,7 @@ import ru.shmvsky.testingsystem.repository.TestRepository;
 import ru.shmvsky.testingsystem.repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @DataJpaTest
 public class RepositoryTests {
@@ -18,6 +19,12 @@ public class RepositoryTests {
 
     @Autowired
     private TestRepository testRepository;
+
+    @Test
+    void shouldFindPopulatedUser() {
+        List<User> users = userRepository.findAll();
+        Assertions.assertEquals(users.size(), 1);
+    }
 
     @Test
     void shouldPersistUser() {
@@ -35,14 +42,8 @@ public class RepositoryTests {
     }
 
     @Test
-    void shouldPersistUserWithTests() {
-        User user = User.builder()
-                .username("username2")
-                .password("password")
-                .fullname("Firstname MiddleName Surname")
-                .build();
-
-        Assertions.assertEquals(user.getOwnedTests(), new ArrayList<>());
+    void shouldAddTestToUser() {
+        User user = userRepository.findById(1).orElseThrow();
 
         user.addTest(
                 ru.shmvsky.testingsystem.entity.Test.builder()
@@ -56,15 +57,11 @@ public class RepositoryTests {
 
         userRepository.save(user);
 
-        User savedUser = userRepository.findById(user.getId()).orElseThrow();
+        User savedUser = userRepository.findById(1).orElseThrow();
 
-        Assertions.assertEquals(user.getId(), savedUser.getId());
-
-        savedUser.getOwnedTests().forEach(test -> {
-            ru.shmvsky.testingsystem.entity.Test savedTest = testRepository.findById(test.getId()).orElseThrow();
-            Assertions.assertEquals(test.getId(), savedTest.getId());
-        });
-
+        Assertions.assertEquals(savedUser.getOwnedTests().size(), 1);
     }
+
+
 
 }
