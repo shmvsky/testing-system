@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <nav th:fragment="header" class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <!-- <img class="navbar-brand" width="60" height="60" src="../../static/logo.svg"/> -->
+      <p class="navbar-brand">Система тестирования ЮФУ</p>
+      <div class="navbar-text">
+        <div class="vstack gap-0">
+          <p th:text="${userInfo.getFullname()}" class="fs-6 m-0 p-0">Фамилия Имя Отчество</p>
+          <p th:text="'@'+${userInfo.getUsername()}" class="fs-6 m-0 p-0">@login</p>
+          <p th:text="${userInfo.getRole()}" class="fs-6 m-0 p-0">Роль</p>
+        </div>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>

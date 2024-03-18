@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Мои тесты</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body class="fw-light bg-light">
+	<nav th:insert="~{fragments/general.html :: header}"></nav>
+
+	<div class="container mt-5">
+		<div class="table-responsive">
+			<table class="table table-borderless table-light">
+				<thead>
+					<tr>
+					  <th scope="col">#</th>
+					  <th scope="col">Название</th>
+					   <th scope="col">Максимум попыток</th>
+					  <th scope="col">Максимум баллов</th>
+					  <th scope="col">Количество вопросов</th>
+					  <th scope="col">Состояние</th>
+					  <th scope="col">Длительность</th>
+					  <th scope="col"></th>
+					</tr>
+				  </thead>
+				  <tbody class="table-group-divider">
+				  <th:block th:each="testInfo, iter : ${testsInfo}">
+					  <tr>
+						  <th th:text="${iter.index}" scope="row"></th>
+						  <td th:text="${testInfo.getTitle()}"></td>
+						  <td th:text="${testInfo.getMaxAttempts()}"></td>
+						  <td th:text="${testInfo.getMaxScore()}"></td>
+						  <td th:text="${testInfo.getQuestionsCount()}"></td>
+						  <td th:text="${testInfo.getIsOpened()}"></td>
+						  <td th:text="${testInfo.getDuration()}"></td>
+						  <td><a th:href="@{'/my-tests/show-details/' + ${testInfo.getId()}}" href="#" class="link-primary">Подробнее</a></td>
+					  </tr>
+				  </th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

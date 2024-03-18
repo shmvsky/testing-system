@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Результат</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body class="fw-light bg-light">
+	<nav th:insert="~{fragments/general.html :: header}"></nav>
+
+	<div class="container mt-5">
+
+		<div class="mb-5">
+<!--			 <h1 class="display-4">Результаты теста для</h1> -->
+			<h1 th:text="'Попытка #' + ${attempt.getAttemptNo()}" class="display-1"></h1>
+			<h1 th:text="${userInfo.getFullname()}" class="display-6 text-decoration-underline"></h1>
+		</div>
+
+		<div class="table-responsive">
+			<table class="table table-borderless table-light">
+				<thead>
+					<tr>
+					  <th scope="col">№</th>
+					  <th scope="col">Ответ</th>
+					  <th scope="col">Баллов</th>
+					  <th scope="col">Засчитан</th>
+					</tr>
+				</thead>
+				<tbody>
+				<th:block th:each="answer, iter : ${attempt.getAnswers()}">
+					<tr>
+						<th th:text="'#' + ${iter.count}" scope="row"></th>
+						<td th:text="${answer.getAnswer()}"></td>
+						<td th:text="${answer.getPoints()}"></td>
+						<td th:text="${answer.isRight ? '✅' : '❌'}"></td>
+					</tr>
+				</th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
