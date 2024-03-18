@@ -1,5 +1,5 @@
 package ru.shmvsky.testingsystem.entity;
 
-public enum AttemptStatus {
+public enum Status {
     STARTED, FINISHED, EXPIRED
 }

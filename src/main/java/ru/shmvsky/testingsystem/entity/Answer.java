@@ -1,14 +1,14 @@
 package ru.shmvsky.testingsystem.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Min;
+import lombok.*;
 
-@Data
+
 @Entity
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Answer {
@@ -22,8 +22,6 @@ public class Answer {
     private Attempt attempt;
 
     private String userAns;
-
-    private String points;
 
     private boolean isRight;
 

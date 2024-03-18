@@ -13,7 +13,6 @@ CREATE TABLE answer
     id         BIGINT  NOT NULL,
     attempt_id INTEGER,
     user_ans   VARCHAR(255),
-    points     VARCHAR(255),
     is_right   BOOLEAN NOT NULL,
     CONSTRAINT pk_answer PRIMARY KEY (id)
 );

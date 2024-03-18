@@ -1,17 +1,15 @@
 package ru.shmvsky.testingsystem.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
 @Entity
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Attempt {
@@ -32,7 +30,7 @@ public class Attempt {
     private List<Answer> answers;
 
     @Enumerated(EnumType.STRING)
-    private AttemptStatus status;
+    private Status status;
 
     private LocalDateTime startedAt;
     private LocalDateTime finishedAt;
