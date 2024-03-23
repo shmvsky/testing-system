@@ -9,28 +9,30 @@
 </head>
 <body class="fw-light bg-light">
 
-	<nav th:insert="~{fragments/general.html :: header}"></nav>
+	<nav th:insert="~{general.html :: header}"></nav>
 
 	<div class="container mt-5">
 		<div class="table-responsive">
 			<table class="table table-borderless table-light">
 				<thead>
-					<tr>
-					  <th scope="col">#</th>
-					  <th scope="col"># попытки</th>
-					  <th scope="col">Баллов</th>
-					  <th scope="col">Завершено</th>
-					  <th scope="col"></th>
-					</tr>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Название теста</th>
+					<th scope="col">Состояние</th>
+					<th scope="col">Кол-во правильных ответов</th>
+					<th scope="col">Потрачено времени</th>
+					<th scope="col"></th>
+				</tr>
 				  </thead>
 				  <tbody class="table-group-divider">
 				  <th:block th:each="attempt, iter : ${attempts}">
 					  <tr>
 						  <th th:text="${iter.count}" scope="row"></th>
-						  <td th:text="${attempt.attemptNo}"></td>
-						  <td th:text="${attempt.score}"></td>
-						  <td th:text="${attempt.endTime}"></td>
-						  <td><a th:href="@{'/my-attempts/show-details/' + ${attempt.id}}" href="#" class="link-primary">Подробнее</a></td>
+						  <td th:text="${attempt.getTestTitle()}"></td>
+						  <td th:text="${attempt.getStatus()}"></td>
+						  <td th:text="${attempt.getRightAnswersCnt()}"></td>
+						  <td th:text="${attempt.getTimeSpent()}"></td>
+						  <td><a th:href="@{'/attempts/show/' + ${attempt.getAttemptId()}}" href="#" class="link-primary">Подробнее</a></td>
 					  </tr>
 				  </th:block>
 				  </tbody>

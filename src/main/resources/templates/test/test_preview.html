@@ -9,15 +9,15 @@
 </head>
 <body class="fw-light bg-light">
 
-	<nav th:insert="~{fragments/general.html :: header}"></nav>
+	<nav th:insert="~{general.html :: header}"></nav>
 
 	<div class="container mt-4">
 
 		<div class="container d-flex flex-wrap gap-2 mb-1">
-			<h1><span th:text="'⏳ ' + ${testInfo.getDuration()}" class="badge text-bg-secondary" title="Отведенное время"></span></h1>
-			<h1><span th:text="'❓ ' + ${testInfo.getQuestionsCount()}" class="badge text-bg-secondary" title="Кол-во вопросов"></span></h1>
-			<h1><span th:text="'📝 ' + ${testInfo.getMaxScore()}" class="badge text-bg-secondary" title="Кол-во баллов"></span></h1>
-			<h1><span th:text="${testInfo.getIsOpened()} ? '✅ Открыт' : '❌ Закрыт'" class="badge text-bg-secondary" title="Статус"></span></h1>
+			<h1><span th:text="'⏳ ' + ${testInfo.getDuration()}" class="badge text-bg-secondary"></span></h1>
+			<h1><span th:text="'❓ ' + ${testInfo.getQuestionsCnt()}" class="badge text-bg-secondary"></span></h1>
+			<h1><span th:text="'📝 ' + ${testInfo.getAttemptsLimit()}" class="badge text-bg-secondary"></span></h1>
+			<h1><span th:text="${testInfo.isOpened()} ? '✅ Открыт' : '❌ Закрыт'" class="badge text-bg-secondary"></span></h1>
 		</div>
 
 		<div class="d-flex flex-column flex-wrap mb-2 align-items-start container">
@@ -25,7 +25,7 @@
 			<p th:text="${testInfo.getDescription()}"></p>
 		</div>
 
-		<form action="#" th:action="@{'/test/' + ${testInfo.getId()} + '/start'}" th:method="post">
+		<form th:action="@{'/test/' + ${testInfo.getId()} + '/start'}" th:method="post">
 			<button class="btn btn-primary">Приступить</button>
 		</form>
 

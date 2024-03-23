@@ -9,15 +9,14 @@
 </head>
 <body class="fw-light bg-light">
 
-    <nav th:insert="~{fragments/general.html :: header}"></nav>
+    <nav th:insert="~{general.html :: header}"></nav>
 
 	<div class="container mt-5">
 
         <div class="d-flex flex-column align-items-start">
             <div class="flex-row mb-4">
-                <a th:href="@{/my-attempts/all}" href="#" class="btn btn-outline-primary">Мои попытки</a>
-                <a th:href="@{/my-tests/all}" th:if="${userInfo.getRole() eq 'ROLE_STUDENT'}" class="btn btn-outline-primary disabled">Мои тесты</a>
-                <a th:href="@{/my-tests/all}" th:if="${userInfo.getRole() eq 'ROLE_TEACHER'}" class="btn btn-outline-primary">Мои тесты</a>
+                <a th:href="@{/attempts}" href="#" class="btn btn-outline-primary">Мои попытки</a>
+                <a th:href="@{/my-tests}" th:if="${userInfo.getRole() eq 'ROLE_TEACHER'}" class="btn btn-outline-primary">Мои тесты</a>
             </div>
 
             <form th:action="@{/my-tests/create}" enctype="multipart/form-data" th:method="post" action="#" class="mb-4">

@@ -1,13 +1,14 @@
 package ru.shmvsky.testingsystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.shmvsky.testingsystem.entity.Role;
+import ru.shmvsky.testingsystem.entity.Test;
 import ru.shmvsky.testingsystem.entity.User;
 import ru.shmvsky.testingsystem.pojo.RegistrationForm;
-//import ru.shmvsky.testingsystem.pojo.UserInfo;
+import ru.shmvsky.testingsystem.pojo.UserInfo;
 import ru.shmvsky.testingsystem.repository.UserRepository;
 
 @Service
@@ -30,15 +31,26 @@ public class UserService {
                         .fullname(fullname)
                         .username(username)
                         .password(password)
-                        .role(Role.STUDENT)
+                        .role(Role.ROLE_STUDENT)
                         .build()
         );
 
     }
 
-//    public UserInfo getUserInfo(String username) {
-//        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
-//        return new UserInfo(user);
-//    }
+    public UserInfo getUserInfo(String username) {
+        return new UserInfo(getUser(username));
+    }
+
+    private User getUser(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
+    public Test addTestForUser(String username, Test test) {
+        User user = getUser(username);
+        user.addTest(test);
+        userRepository.save(user);
+
+        return test;
+    }
 
 }

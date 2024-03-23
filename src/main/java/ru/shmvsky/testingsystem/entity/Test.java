@@ -2,6 +2,7 @@ package ru.shmvsky.testingsystem.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.shmvsky.testingsystem.dto.TestDto;
 
 import java.util.List;
 
@@ -42,14 +43,19 @@ public class Test {
         question.setTest(this);
     }
 
-    public void addAttempt(Attempt attempt) {
-        attempts.add(attempt);
-        attempt.setTest(this);
-    }
-
     public void deleteQuestion(Question question) {
         questions.remove(question);
         question.setTest(null);
+    }
+
+    public void updateQuestions(List<Question> questions) {
+        this.questions.clear();
+        questions.forEach(this::addQuestion);
+    }
+
+    public void addAttempt(Attempt attempt) {
+        attempts.add(attempt);
+        attempt.setTest(this);
     }
 
     public void deleteAttempt(Attempt attempt) {

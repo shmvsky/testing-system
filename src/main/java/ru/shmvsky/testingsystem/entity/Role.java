@@ -1,6 +1,6 @@
 package ru.shmvsky.testingsystem.entity;
 
 public enum Role {
-    STUDENT,
-    TEACHER
+    ROLE_STUDENT,
+    ROLE_TEACHER
 }

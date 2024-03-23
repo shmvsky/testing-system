@@ -21,6 +21,5 @@ public class Question {
 
     private String body;
     private String answer;
-    private int points;
 
 }

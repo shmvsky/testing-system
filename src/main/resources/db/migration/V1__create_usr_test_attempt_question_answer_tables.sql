@@ -34,7 +34,6 @@ CREATE TABLE question
     test_id INTEGER,
     body    VARCHAR(255),
     answer  VARCHAR(255),
-    points  INTEGER NOT NULL,
     CONSTRAINT pk_question PRIMARY KEY (id)
 );
 

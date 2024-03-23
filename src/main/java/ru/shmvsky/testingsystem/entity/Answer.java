@@ -1,7 +1,6 @@
 package ru.shmvsky.testingsystem.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 
 

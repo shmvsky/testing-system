@@ -8,16 +8,18 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body class="fw-light bg-light">
-	<nav th:insert="~{fragments/general.html :: header}"></nav>
+	<nav th:insert="~{general.html :: header}"></nav>
 
 	<div class="container mt-4">
 
 		<div class="container d-flex flex-wrap gap-2 mb-1">
-			<h1><span th:text="'⏳ ' + ${testInfo.getDuration()}" class="badge text-bg-secondary" title="Отведенное время"></span></h1>
-			<h1><span th:text="'❓ ' + ${testInfo.getQuestionsCount()}" class="badge text-bg-secondary" title="Кол-во вопросов"></span></h1>
-			<h1><span th:text="'📝 ' + ${testInfo.getMaxScore()}" class="badge text-bg-secondary" title="Кол-во баллов"></span></h1>
-			<h1><span th:text="${testInfo.getIsOpened()} ? '✅ Открыт' : '❌ Закрыт'" class="badge text-bg-secondary" title="Статус"></span></h1>
-			<h1><a th:href="@{'/my-tests/edit/' + ${testInfo.getId()}}" href="#"><span class="badge text-bg-primary">Редактировать</span></a></h1>
+			<h1><span th:text="'⏳ ' + ${testInfo.getDuration()}" class="badge text-bg-secondary"></span></h1>
+			<h1><span th:text="'❓ ' + ${testInfo.getQuestionsCnt()}" class="badge text-bg-secondary"></span></h1>
+			<h1><span th:text="'📝 ' + ${testInfo.getAttemptsLimit()}" class="badge text-bg-secondary"></span></h1>
+			<h1><span th:text="${testInfo.isOpened()} ? '✅ Открыт' : '❌ Закрыт'" class="badge text-bg-secondary"></span></h1>
+			<a th:href="@{'/my-tests/edit/' + ${testInfo.getId()}}">
+				<h1><span class="badge text-bg-primary">Редактировать</span></h1>
+			</a>
 		</div>
 	
 		<div class="d-flex flex-column flex-wrap mb-2 align-items-start container">
@@ -32,9 +34,10 @@
 				<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col"># попытки</th>
-					<th scope="col">Баллов</th>
-					<th scope="col">Завершено</th>
+					<th scope="col">ФИО</th>
+					<th scope="col">Состояние</th>
+					<th scope="col">Кол-во правильных ответов</th>
+					<th scope="col">Потрачено времени</th>
 					<th scope="col"></th>
 				</tr>
 				</thead>
@@ -42,10 +45,11 @@
 				<th:block th:each="attempt, iter : ${attempts}">
 					<tr>
 						<th th:text="${iter.count}" scope="row"></th>
-						<td th:text="${attempt.attemptNo}"></td>
-						<td th:text="${attempt.score}"></td>
-						<td th:text="${attempt.endTime}"></td>
-						<td><a th:href="@{'/my-attempts/show-details/' + ${attempt.id}}" href="#" class="link-primary">Подробнее</a></td>
+						<td th:text="${attempt.getFullname()}"></td>
+						<td th:text="${attempt.getStatus()}"></td>
+						<td th:text="${attempt.getRightAnswersCnt()}"></td>
+						<td th:text="${attempt.getTimeSpent()}"></td>
+						<td><a th:href="@{'/attempts/show-details/' + ${attempt.getAttemptId()}}" class="link-primary">Подробнее</a></td>
 					</tr>
 				</th:block>
 				</tbody>
