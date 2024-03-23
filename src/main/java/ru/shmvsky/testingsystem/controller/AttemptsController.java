@@ -26,14 +26,18 @@ public class AttemptsController {
     public String showAllAttempts(Principal principal, Model model) {
 
         model.addAttribute("userInfo", userService.getUserInfo(principal.getName()));
-        model.addAttribute("attempts", attemptService.getUserAttempts(principal.getName()));
+        model.addAttribute("attempts", attemptService.getUserAttemptsInfos(principal.getName()));
 
         return "attempts/my_attempts";
     }
 
     @GetMapping("/show/{attemptId}")
-    public String showAttempt(@PathVariable String attemptId) {
-        return null;
+    public String showAttempt(@PathVariable Integer attemptId, Principal principal, Model model) {
+
+        model.addAttribute("userInfo", userService.getUserInfo(principal.getName()));
+        model.addAttribute("attempt", attemptService.getUserAttempt(principal.getName(), attemptId));
+
+        return "attempts/attempt_details";
     }
 
 }

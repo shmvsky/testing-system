@@ -3,6 +3,7 @@ package ru.shmvsky.testingsystem.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,5 +35,15 @@ public class Attempt {
 
     private LocalDateTime startedAt;
     private LocalDateTime finishedAt;
+
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+        answer.setAttempt(this);
+    }
+
+//    public void updateAnswers(List<Answer> answers) {
+//        this.answers.clear();
+//        answers.forEach(this::addAnswer);
+//    }
 
 }

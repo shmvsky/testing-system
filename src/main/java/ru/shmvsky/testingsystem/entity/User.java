@@ -32,6 +32,10 @@ public class User {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Test> ownedTests = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Attempt> attempts = new ArrayList<>();
+
     public void addTest(Test test) {
         ownedTests.add(test);
         test.setAuthor(this);
@@ -40,6 +44,11 @@ public class User {
     public void deleteTest(Test test) {
         ownedTests.remove(test);
         test.setAuthor(null);
+    }
+
+    public void addAttempt(Attempt attempt) {
+        this.attempts.add(attempt);
+        attempt.setUser(this);
     }
 
 }

@@ -4,11 +4,8 @@ package ru.shmvsky.testingsystem.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.shmvsky.testingsystem.repository.UserRepository;
+import org.springframework.web.bind.annotation.*;
+import ru.shmvsky.testingsystem.entity.Attempt;
 import ru.shmvsky.testingsystem.service.AttemptService;
 import ru.shmvsky.testingsystem.service.TestService;
 import ru.shmvsky.testingsystem.service.UserService;
@@ -35,19 +32,28 @@ public class TestController {
         return "test/test_preview";
     }
 
-    @PostMapping("/start")
-    public String startTest(@PathVariable String testId) {
-        return null;
-    }
-
     @GetMapping("/start")
-    public String showTestForm(@PathVariable String testId) {
-        return null;
+    public String showTestForm(@PathVariable Integer testId, Model model, Principal principal) {
+        Attempt actualAttempt = attemptService.getActualAttempt(userService.getUser(principal.getName()), testService.getTest(testId));
+
+        if (actualAttempt == null) {
+            return "redirect:/test/" + testId + "/preview";
+        }
+
+        model.addAttribute("userInfo", userService.getUserInfo(principal.getName()));
+        model.addAttribute("attempt", actualAttempt);
+
+        return "test/test";
     }
 
     @PostMapping("/finish")
-    public String endTest(@PathVariable String testId) {
-        return null;
+    public String endTest(@PathVariable Integer testId, @ModelAttribute Attempt attempt) {
+
+        attempt.getAnswers().stream().forEach(answer -> System.out.println(answer.getUserAns()));
+
+        attemptService.processResults(testService.getTest(testId), attempt);
+
+        return "redirect:/attempts/show/" + attempt.getId();
     }
 
 }

@@ -1,15 +1,12 @@
 package ru.shmvsky.testingsystem.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import ru.shmvsky.testingsystem.dto.TestDto;
 import ru.shmvsky.testingsystem.entity.Test;
 import ru.shmvsky.testingsystem.pojo.TestInfo;
 import ru.shmvsky.testingsystem.repository.TestRepository;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +30,10 @@ public class TestService {
             throw new RuntimeException("Test not found with id " + testId);
         }
 
+    }
+
+    public Test getTest(Integer testId) {
+        return testRepository.findById(testId).orElseThrow();
     }
 
     private List<Test> getOwnedTests(String username) {
@@ -93,7 +94,5 @@ public class TestService {
 
         return testRepository.save(ownedTest);
     }
-
-
 
 }
